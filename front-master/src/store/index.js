@@ -13,6 +13,10 @@ Vue.use(Vuex)
 // const getters = {}
 import home from './home'
 import search from './search';
+import detail from './detail';
+import shopcart from './shopcart';
+import user from './user';
+import trade from './trade';
 
 //对外暴露stroe类的一个实例
 export default new Vuex.Store({
@@ -22,7 +26,11 @@ export default new Vuex.Store({
   // getters
   modules:{
     home,
-    search
+    search,
+    detail,
+    shopcart,
+    user,
+    trade
   }
 
 });

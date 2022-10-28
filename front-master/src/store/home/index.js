@@ -7,7 +7,6 @@ const state = {
   bannerList:[],
   //floor组件的数据
   floorList:[]
-
 };
 const mutations = {
   CATEGORYLIST(state,categoryList) {
@@ -39,7 +38,6 @@ const actions = {
   //获取floor数据
   async getFloorList({commit}){
     let result = await reqFloorList();
-    console.log(result,'oo');
     if(result.code == 200) {
       //提交mutation
       commit('GETFLOORLIST',result.data);

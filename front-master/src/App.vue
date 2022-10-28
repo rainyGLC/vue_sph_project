@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- 引用自定义插件小写变大写 -->
+    <!-- <h1 v-upper="msg"></h1> -->
     <Header></Header>
     <!-- 路由组件入口的地方 -->
     <router-view></router-view>
@@ -17,6 +19,11 @@ import Footer from './components/Footer'
 
 export default {
   name: 'App',
+  data(){
+    return {
+      // msg:"abc"
+    }
+  },
   components: {
     Header,
     Footer
@@ -24,6 +31,7 @@ export default {
   mounted(){
     //派发一个action||获取商品分类的三级列表的数据
     this.$store.dispatch('categoryList');
+
   }
 }
 </script>

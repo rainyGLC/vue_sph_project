@@ -5,16 +5,21 @@
         <div class="container">
             <div class="loginList">
                 <p>尚品汇欢迎您！</p>
-                <p>
+                <p v-if="!userName">
                     <span>请</span>
 										<!-- 声明式导航、务必要有to属性 -->
                     <router-link to="/login">登录</router-link>
                     <router-link class="register" to="/register">免费注册</router-link>
                 </p>
+                <!-- 登录了 -->
+                <p v-else>
+                    <a>{{userName}}</a>
+                    <a class="register" @click="logout">退出登录</a>
+                </p>
             </div>
             <div class="typeList">
-                <a href="###">我的订单</a>
-                <a href="###">我的购物车</a>
+                <router-link to="/center/myorder">我的订单</router-link>
+                <router-link to="/shopcart">我的购物车</router-link>
                 <a href="###">我的尚品汇</a>
                 <a href="###">尚品汇会员</a>
                 <a href="###">企业采购</a>
@@ -89,8 +94,34 @@ export default {
 				location.query = this.$route.query;
 				this.$router.push(location);
 			}
-		}
-	}
+		},
+        //退出登录
+        async logout(){
+        //1:需要发请求，通知服务器退出登录【清除一些数据:token]
+        //2:清除项目当中的数据【userInfo、token】
+           try {
+            //如果退出成功
+            await this.$store.dispatch('userLogout');
+            //回到首页
+            this.$router.push('/home');
+           } catch (error) {
+            alert(error.message)
+           }
+
+        }
+	},
+	mounted(){
+		//通过全局事件总线清除关键字
+		this.$bus.$on("clear",()=>{
+			this.keyword = '';
+		});
+	},
+    computed:{
+        //用户信息
+        userName(){
+            return this.$store.state.user.userInfo.name;
+        }
+    }
 
 }
 </script>
