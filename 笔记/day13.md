@@ -104,7 +104,37 @@ vue.config.js 配置:productionSourceMap:false
 
 cd /【根目录】mkdir 创建文件 ls 查看 pwd  绝对路径
 
-6.5 nginx 反向代理
+ngnix
+1:为什么访问服务器IP地址可以访问到项目？ ---配置一些东西
+http://82.156.11.187/
+刚刚在服务器上->/root/jch/www/shangpinhui/dist
 
-yum install ngnix[etc]
+2:项目的数据来自于http://39.98.123.211
+
+
+
+6.5 nginx 反向代理
+ngnix配置：
+1：xshell进入根目录/etc
+2：进入etc目录。这个目录下有一个ngnix目录进入到这个目录[已经安装过ngnix:如果没有安装过
+,四五个文件]
+3：如果想安装nginx：yum install ngnix
+4:安装完ngnix服务器后，你会发现在ngnix目录下，多了一个ngnix.conf文件，在这个文件中进行配置
+5：vim ngnix.conf进行编辑：
+第一个问题
+location / {
+  root     /root/jch/www/shangpinhui/dist;
+  index    index.html
+  try_files  $uri  $uri/ /index.html;
+}
+第二个问题
+location /api{
+  proxy_pass http://39.98.123.211;
+}
+nginx服务器跑起来
+servie ngnix start
+
+
+
+
 
